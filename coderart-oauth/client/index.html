@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Google Oauth</title>
+    <style>
+      body {
+        font-family: "Arial", sans-serif;
+        text-align: center;
+        margin: 50px;
+      }
+
+      h1 {
+        color: #4285f4;
+      }
+
+      .google-button {
+        display: inline-block;
+        background-color: #4285f4;
+        color: #ffffff;
+        border: 1px solid #4285f4;
+        border-radius: 4px;
+        padding: 10px 20px;
+        text-decoration: none;
+        font-size: 16px;
+        cursor: pointer;
+      }
+
+      .google-button:hover {
+        background-color: #357ae8;
+        border: 1px solid #357ae8;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Google Oauth 2 with Passportjs</h1>
+    <a href="/auth/google" class="google-button">Log in with Google</a>
+
+    <div id="user-info"></div>
+  </body>
+</html>
