@@ -7,19 +7,21 @@ const userSchema = new mongoose.Schema(
     firstName: {
       type: String,
       trim: true,
+      required: [true, "First name is required."],
     },
     lastName: {
       type: String,
+      required: [true, "First name is required."],
       trim: true,
     },
     userName: {
       type: String,
-
+      required: [true, "First name is required."],
       trim: true,
     },
     email: {
       type: String,
-
+      required: [true, "First name is required."],
       trim: true,
       validate: {
         validator: (value) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value),
@@ -28,6 +30,7 @@ const userSchema = new mongoose.Schema(
     },
     phoneNumber: {
       type: Number,
+      required: [true, "First name is required."],
       validate: {
         validator: function (value) {
           return /^\d+$/.test(value);
@@ -77,6 +80,7 @@ const userSchema = new mongoose.Schema(
       default: "user",
     },
     password: {
+      required: [true, "First name is required."],
       type: String,
     },
 
