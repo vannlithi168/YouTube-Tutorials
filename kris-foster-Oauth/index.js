@@ -2,7 +2,6 @@ const express = require("express");
 const session = require("express-session");
 const passport = require("passport");
 require("./auth");
-const User = require("./models/User");
 
 function isLoggedIn(req, res, next) {
   req.user ? next() : res.sendStatus(401);
@@ -47,12 +46,8 @@ app.get("/protected", isLoggedIn, (req, res) => {
 });
 
 app.get("/logout", (req, res) => {
-  console.log("Logging out...");
-  req.logout();
-  console.log("Cleared cookie...");
-  res.clearCookie("connect.sid");
-  console.log("Redirecting...");
-  res.redirect("/");
+  req.session.destroy();
+  res.send("See you again");
 });
 
 app.listen(3000, () => console.log("Listening on: 3000"));

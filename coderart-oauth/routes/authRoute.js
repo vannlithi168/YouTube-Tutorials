@@ -1,39 +1,18 @@
 const express = require("express");
-const path = require("path");
-const app = express();
-const session = require("express-session");
-require("./auth");
 const passport = require("passport");
 
-app.use(express.json());
-app.use(express.static(path.join(__dirname, "client")));
+const router = express.Router();
 
 function isLoggedIn(req, res, next) {
   req.user ? next() : res.sendStatus(401);
 }
 
-app.get("/", (req, res) => {
-  res.sendFile("index.html");
-});
-
-app.use(
-  session({
-    secret: "keyboard cat",
-    resave: false,
-    saveUninitialized: true,
-    cookie: { secure: false },
-  })
-);
-
-app.use(passport.initialize());
-app.use(passport.session());
-
-app.get(
+router.get(
   "/auth/google",
   passport.authenticate("google", { scope: ["email", "profile"] })
 );
 
-app.get(
+router.get(
   "/auth/google/callback",
   passport.authenticate("google", {
     successRedirect: "/auth/protected",
@@ -41,7 +20,7 @@ app.get(
   })
 );
 
-app.get("/auth/protected", isLoggedIn, (req, res) => {
+router.get("/auth/protected", isLoggedIn, (req, res) => {
   const user = req.user;
 
   // Render an HTML page and pass user data to it
@@ -65,17 +44,13 @@ app.get("/auth/protected", isLoggedIn, (req, res) => {
   `);
 });
 
-app.get("/auth/failure", (req, res) => {
+router.get("/auth/failure", (req, res) => {
   res.send("Something went wrong!");
 });
 
-app.get("/auth/logout", (req, res) => {
+router.use("/auth/logout", (req, res) => {
   req.session.destroy();
   res.send("Goodbye");
 });
 
-app.listen(3001, () => {
-  console.log("Listening on port 3001");
-});
-
-//testing
+module.exports = router;
